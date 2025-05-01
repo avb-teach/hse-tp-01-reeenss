@@ -4,7 +4,6 @@ INPUT_DIR="$1"
 OUTPUT_DIR="$2"
 
 mkdir -p "$OUTPUT_DIR"
-declare -A seen
 
 find "$INPUT_DIR" -type f | while read -r file; do
     base=$(basename "$file")
@@ -12,12 +11,13 @@ find "$INPUT_DIR" -type f | while read -r file; do
     ext="${base##*.}"
     [[ "$name" == "$ext" ]] && ext="" || ext=".$ext"
 
-    newname="$base"
+    target="$OUTPUT_DIR/$base"
     count=1
-    while [[ -e "$OUTPUT_DIR/$newname" ]]; do
-        newname="${name}${count}${ext}"
+
+    while [[ -e "$target" ]]; do
+        target="$OUTPUT_DIR/${name}_${count}${ext}"
         ((count++))
     done
 
-    cp "$file" "$OUTPUT_DIR/$newname"
+    cp "$file" "$target"
 done
