@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#воспользовалась идеей с сайта https://stackoverflow.com/questions/20799905/flatten-directory-structure-and-preserve-duplicate-files
 INPUT_DIR="$1"
 OUTPUT_DIR="$2"
 
